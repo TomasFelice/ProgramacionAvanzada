@@ -2,13 +2,18 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        int imageSize = 4;
+        int imageSize = (int) (Math.random() * 10) + 1;
+        System.out.println("Image size: " + imageSize + "x" + imageSize);
         int[][] squaredImage = generateSquaredImage(imageSize);
+
+        System.out.println("Original matrix: ");
         printImage(squaredImage);
 
         rotate90(squaredImage);
+//      rotate90_2(squaredImage);
 
         System.out.println(" ");
+        System.out.println("Rotated matrix: ");
         printImage(squaredImage);
     }
 
@@ -32,6 +37,10 @@ public class Main {
         }
     }
 
+    /**
+     * Solution 1. Squares method
+     * @param squaredImage
+     */
     public static void rotate90(int[][] squaredImage) {
         int n = squaredImage.length;
         for (int i = 0; i < n / 2; i++) {
@@ -42,6 +51,42 @@ public class Main {
                 squaredImage[n - i - 1][n - j - 1] = squaredImage[j][n - i - 1];
                 squaredImage[j][n - i - 1] = aux;
 
+            }
+        }
+    }
+
+    /**
+     * Solution 2. Transpose and invest rows
+     * @param squaredImage
+     */
+    public static void rotate90_2(int[][] squaredImage) {
+        transposeSquaredImage(squaredImage);
+
+        System.out.println(" ");
+        System.out.println("Transposed matrix: ");
+        printImage(squaredImage);
+
+        investRows(squaredImage);
+    }
+
+    public static void transposeSquaredImage(int[][] squaredImage) {
+        int n = squaredImage.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                int aux = squaredImage[i][j];
+                squaredImage[i][j] = squaredImage[n - j - 1][n - i - 1];
+                squaredImage[n - j - 1][n - i - 1] = aux;
+            }
+        }
+    }
+
+    public static void investRows(int[][] squaredImage) {
+        int n = squaredImage.length;
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = 0; j < n; j++) {
+                int aux = squaredImage[i][j];
+                squaredImage[i][j] = squaredImage[n - i - 1][j];
+                squaredImage[n - i - 1][j] = aux;
             }
         }
     }
