@@ -1,5 +1,3 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         int imageSize = (int) (Math.random() * 10) + 1;
@@ -39,7 +37,7 @@ public class Main {
 
     /**
      * Solution 1. Squares method
-     * @param squaredImage
+     * @param int[][] squaredImage
      */
     public static void rotate90(int[][] squaredImage) {
         int n = squaredImage.length;
@@ -57,7 +55,7 @@ public class Main {
 
     /**
      * Solution 2. Transpose and invest rows
-     * @param squaredImage
+     * @param int[][] squaredImage
      */
     public static void rotate90_2(int[][] squaredImage) {
         transposeSquaredImage(squaredImage);
