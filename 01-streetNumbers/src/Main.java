@@ -3,3 +3,17 @@ public class Main {
 
     }
 }
+
+public class StreetNumbers {
+    public static int quadratic(int maxHouseNumber) {
+        return -1;
+    }
+
+    public static int linear(int maxHouseNumber) {
+        return -1;
+    }
+
+    public static int constant(int maxHouseNumber) {
+        return -1;
+    }
+}
