@@ -1,25 +1,28 @@
+import java.math.BigInteger;
+
 public class StreetNumbers {
     public static int quadratic(int maxHouseNumber) {
-        int actualHouse = maxHouseNumber / 2;
-        int leftHouseNumbersSum = 0;
-        int rightHouseNumbersSum = 0;
+        BigInteger initialHouse = BigInteger.valueOf(maxHouseNumber / 2);
+        BigInteger actualHouse = initialHouse;
+        BigInteger leftHouseNumbersSum = BigInteger.valueOf(0);
+        BigInteger rightHouseNumbersSum = BigInteger.valueOf(0);
 
-        while (leftHouseNumbersSum < rightHouseNumbersSum || actualHouse == maxHouseNumber / 2) {
-            leftHouseNumbersSum = 0;
-            rightHouseNumbersSum = 0;
-            for (int i = 1; i < actualHouse; i++) {
-                leftHouseNumbersSum += i;
+        while (leftHouseNumbersSum.compareTo(rightHouseNumbersSum) < 0 || actualHouse.equals(initialHouse)) {
+            leftHouseNumbersSum = BigInteger.valueOf(0);
+            rightHouseNumbersSum = BigInteger.valueOf(0);
+            for (BigInteger i = BigInteger.ONE; i.compareTo(actualHouse) < 0; i = i.add(BigInteger.ONE)) {
+                leftHouseNumbersSum = leftHouseNumbersSum.add(i);
             }
 
-            for (int i = actualHouse + 1; i <= maxHouseNumber; i++) {
-                rightHouseNumbersSum += i;
+            for (BigInteger i = actualHouse.add(BigInteger.ONE); i.compareTo(BigInteger.valueOf(maxHouseNumber)) <= 0; i = i.add(BigInteger.ONE)) {
+                rightHouseNumbersSum = rightHouseNumbersSum.add(i);
             }
 
-            if (leftHouseNumbersSum == rightHouseNumbersSum) {
-                return actualHouse;
+            if (leftHouseNumbersSum.equals(rightHouseNumbersSum)) {
+                return actualHouse.intValue();
             }
 
-            actualHouse++;
+            actualHouse = actualHouse.add(BigInteger.ONE);
         }
 
         return -1;
@@ -27,12 +30,12 @@ public class StreetNumbers {
 
     public static int linear(int maxHouseNumber) {
         int actualHouse = maxHouseNumber / 2;
-        int maxHouseFormulaChecker = (int) Math.pow(maxHouseNumber, 2) + maxHouseNumber;
-        int actualHouseFormulaChecker = 0;
-        while(actualHouseFormulaChecker < maxHouseFormulaChecker) {
-            actualHouseFormulaChecker = 2 * (int) Math.pow(actualHouse, 2);
+        BigInteger maxHouseFormulaChecker = BigInteger.valueOf((long) (Math.pow(maxHouseNumber, 2) + maxHouseNumber));
+        BigInteger actualHouseFormulaChecker = BigInteger.ZERO;
+        while(actualHouseFormulaChecker.compareTo(maxHouseFormulaChecker) < 0) {
+            actualHouseFormulaChecker = BigInteger.valueOf(2L * (long) Math.pow(actualHouse, 2));
 
-            if(maxHouseFormulaChecker == actualHouseFormulaChecker ) {
+            if(maxHouseFormulaChecker.equals(actualHouseFormulaChecker)) {
                 return actualHouse;
             }
 
@@ -45,6 +48,12 @@ public class StreetNumbers {
 
 
     public static int constant(int maxHouseNumber) {
+        double result = Math.sqrt( ((double) maxHouseNumber /2) * (maxHouseNumber+1) );
+
+        if (result == (int) result) {
+            return (int) result;
+        }
+
         return -1;
     }
 }
