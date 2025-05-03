@@ -7,10 +7,12 @@ public class Main {
         int iterativeSolutionResult = iterativeSolution(numbers, rangeMin, rangeMax);
         int recursiveSolutionResult = recursiveSolution(numbers, rangeMin, rangeMax, 0);
         int iterativeSolutionResult2 = iterativeSolution2(numbers, rangeMin, rangeMax);
+        int recursiveSolutionResult2 = recursiveSolution2(numbers, rangeMin, rangeMax);
 
         System.out.println("Iterative solution result: " + iterativeSolutionResult);
         System.out.println("Recursive solution result: " + recursiveSolutionResult);
         System.out.println("Iterative solution result 2: " + iterativeSolutionResult2);
+        System.out.println("Recursive solution result 2: " + recursiveSolutionResult2);
     }
 
     /**
@@ -115,7 +117,40 @@ public class Main {
     }
 
     public static int recursiveSolution2(int[] numbers, int rangeMin, int rangeMax) {
-        // TODO
-        return -1;
+        if(numbers.length == 0) {
+            return 0;
+        }
+
+        int indexMinElement = findInferiorLimitRecursive(numbers, rangeMin, 0, numbers.length - 1, numbers.length);
+        int indexMaxElement = findSuperiorLimitRecursive(numbers, rangeMax, 0, numbers.length - 1, numbers.length);
+
+        return indexMaxElement - indexMinElement;
+    }
+
+    public static int findInferiorLimitRecursive(int[] numbers, int number, int firstIndex, int lastIndex, int index) {
+        if (firstIndex > lastIndex) {
+            return index;
+        }
+
+        int middleIndex = firstIndex + (lastIndex - firstIndex) / 2;
+        if (numbers[middleIndex] < number) {
+            return findInferiorLimitRecursive(numbers, number, middleIndex + 1, lastIndex, middleIndex + 1);
+        }
+
+        return findInferiorLimitRecursive(numbers, number, firstIndex, middleIndex - 1, middleIndex);
+    }
+
+    public static int findSuperiorLimitRecursive(int[] numbers, int number, int firstIndex, int lastIndex, int index) {
+        if (firstIndex > lastIndex) {
+            return index;
+        }
+
+
+        int middleIndex = firstIndex + (lastIndex - firstIndex) / 2;
+        if(numbers[middleIndex] > number) {
+            return findSuperiorLimitRecursive(numbers, number, firstIndex, middleIndex - 1, middleIndex);
+        }
+
+        return findSuperiorLimitRecursive(numbers, number, middleIndex + 1, lastIndex, middleIndex + 1);
     }
 }
