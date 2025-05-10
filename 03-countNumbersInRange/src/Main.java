@@ -1,3 +1,7 @@
+/**
+ * Análisis de la complejidad computacional:
+ *  https://bottlenose-isthmus-e2d.notion.site/Contando-n-meros-en-rango-1e84afc222ba8050825bd0f995fd0601?pvs=4
+ */
 public class Main {
     public static void main(String[] args) {
         int[] numbers = {10, 20, 30, 40, 50};
@@ -116,6 +120,13 @@ public class Main {
         return index;
     }
 
+    /**
+     * Parte 2 - Solución recursiva.
+     * @param numbers int[]
+     * @param rangeMin int
+     * @param rangeMax int
+     * @return int
+     */
     public static int recursiveSolution2(int[] numbers, int rangeMin, int rangeMax) {
         if(numbers.length == 0) {
             return 0;
@@ -127,6 +138,15 @@ public class Main {
         return indexMaxElement - indexMinElement;
     }
 
+    /**
+     * Busca el indice de primer elemento >= al limite inferior recursivamente.
+     * @param numbers int[]
+     * @param number int
+     * @param firstIndex int
+     * @param lastIndex int
+     * @param index int
+     * @return int
+     */
     public static int findInferiorLimitRecursive(int[] numbers, int number, int firstIndex, int lastIndex, int index) {
         if (firstIndex > lastIndex) {
             return index;
@@ -140,11 +160,19 @@ public class Main {
         return findInferiorLimitRecursive(numbers, number, firstIndex, middleIndex - 1, middleIndex);
     }
 
+    /**
+     * Busca el indice de primer elemento > al limite superior recursivamente.
+     * @param numbers int[]
+     * @param number int
+     * @param firstIndex int
+     * @param lastIndex int
+     * @param index int
+     * @return int
+     */
     public static int findSuperiorLimitRecursive(int[] numbers, int number, int firstIndex, int lastIndex, int index) {
         if (firstIndex > lastIndex) {
             return index;
         }
-
 
         int middleIndex = firstIndex + (lastIndex - firstIndex) / 2;
         if(numbers[middleIndex] > number) {
